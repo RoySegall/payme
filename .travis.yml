@@ -8,8 +8,8 @@ cache:
   - /home/travis/build/RoySegall/payme/vendor
 
 before_script:
-  - composer install
+  - composer install --dev
 
 script:
-  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpunit tests
   - ./vendor/bin/phpcs app --colors --standard=psr2
