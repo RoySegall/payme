@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
-interface ClearingServiceInterface {
+interface ClearingServiceInterface
+{
 
 }

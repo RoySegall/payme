@@ -23,7 +23,7 @@ class PayMeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('\App\Services\ClearingService', function() {
+        $this->app->bind('\App\Services\ClearingService', function () {
             return new \App\Services\ClearingService();
         });
     }
