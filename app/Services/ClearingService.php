@@ -54,7 +54,7 @@ class ClearingService implements ClearingServiceInterface
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function paymentRequest($sale_price, $currency, $product_name): void
+    public function paymentRequest($sale_price, $currency, $product_name)
     {
         $payload = [
             'seller_payment_id' => env('seller_payment_id'),
