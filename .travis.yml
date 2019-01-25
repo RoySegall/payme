@@ -1,7 +1,15 @@
 language: php
-version: 7.2
+sudo: false
+
+php: 7.2
+
+cache:
+  directories:
+  - /home/travis/build/RoySegall/payme/vendor
+
 before_script:
-  - composer install
+  - composer install --dev
 
 script:
-  - echo "a"
+  - ./vendor/bin/phpunit tests
+  - ./vendor/bin/phpcs app --colors --standard=psr2
