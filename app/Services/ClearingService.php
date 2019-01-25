@@ -71,6 +71,8 @@ class ClearingService implements ClearingServiceInterface
      */
     public function paymentRequest($sale_price, $currency, $product_name)
     {
+        $this->log = null;
+
         $payload = [
             'seller_payme_id' => env('PAYME_SELLER_ID'),
             'installment' => 1,

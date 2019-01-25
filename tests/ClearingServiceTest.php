@@ -27,9 +27,16 @@ class ClearingServiceTest extends TestCase
         $mock = new MockHandler();
 
         $mock->append(new Response(500, [], json_encode([
-            'status_code' => 0,
+            'status_code' => 1,
             'status_error_details' => 'Invalid price',
             'status_additional_info' => 123,
+            'status_error_code' => 352,
+        ])));
+
+        $mock->append(new Response(200, [], json_encode([
+            'status_code' => 0,
+            'sal_url' => 'http://google.com',
+            'payme_sale_id' => 123,
             'status_error_code' => 352,
         ])));
 
@@ -43,13 +50,24 @@ class ClearingServiceTest extends TestCase
      */
     public function testExample()
     {
-        $this->clearingService->paymentRequest(200, 200, 200);
+        $results = $this->clearingService->paymentRequest(200, 200, 200);
 
+        $this->assertFalse($results);
         $this->assertEquals($this->clearingService->getLog(), (object)[
-            'status_code' => 0,
+            'status_code' => 1,
             'status_error_details' => 'Invalid price',
             'status_additional_info' => 123,
             'status_error_code' => 352,
         ]);
+
+        $results = $this->clearingService->paymentRequest(200, 200, 200);
+
+        $this->assertEquals($this->clearingService->getLog(), (object) [
+            'status_code' => 0,
+            'sal_url' => 'http://google.com',
+            'payme_sale_id' => 123,
+            'status_error_code' => 352,
+        ]);
+        $this->assertTrue($results);
     }
 }
