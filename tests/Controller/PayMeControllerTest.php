@@ -16,7 +16,8 @@ class PayMeControllerTest extends \Tests\TestCase
      * We won't use the method for testing the request since we cannot mock
      * the guzzle object and that won't help us for testing.
      */
-    public function testStore() {
+    public function testStore()
+    {
 
         $controller = new PayMeController();
 
@@ -29,7 +30,8 @@ class PayMeControllerTest extends \Tests\TestCase
         /** @var JsonResponse $response */
         $response = $controller->store($request, $clearing_service);
 
-        $this->assertEquals($response->getData()->error, 'One of the items is missing: sale_price, currency, product_name');
+        $message = 'One of the items is missing: sale_price, currency, product_name';
+        $this->assertEquals($response->getData()->error, $message);
         $this->assertEquals($response->getStatusCode(), 400);
 
         $request->sale_price = 2500;
@@ -41,7 +43,8 @@ class PayMeControllerTest extends \Tests\TestCase
         /** @var JsonResponse $response */
         $response = $controller->store($request, $clearing_service);
 
-        $this->assertEquals($response->getData()->message, 'Something went wrong during the clearing. Please check logs');
+        $message = 'Something went wrong during the clearing. Please check logs';
+        $this->assertEquals($response->getData()->message, $message);
         $this->assertEquals($response->getStatusCode(), 400);
 
         $response = $controller->store($request, $clearing_service);
@@ -49,5 +52,4 @@ class PayMeControllerTest extends \Tests\TestCase
         $this->assertEquals($response->getData()->message, 'The clearing process went OK');
         $this->assertEquals($response->getStatusCode(), 200);
     }
-
 }

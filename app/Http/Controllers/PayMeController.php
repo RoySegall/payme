@@ -23,7 +23,6 @@ class PayMeController extends Controller
     {
         $missing = false;
         foreach (['sale_price', 'currency', 'product_name'] as $key) {
-
             if (empty($request->{$key})) {
                 $missing = true;
                 break;

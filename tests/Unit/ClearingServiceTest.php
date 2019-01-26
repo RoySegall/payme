@@ -18,7 +18,8 @@ class ClearingServiceTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $this->clearingService = $this->app->get('\App\Services\ClearingService');

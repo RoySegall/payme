@@ -16,7 +16,8 @@ trait MockTrait
      * @param \App\Services\ClearingService $clearing_service
      *  The clearing service object.
      */
-    protected function mockHttpService(\App\Services\ClearingService $clearing_service) {
+    protected function mockHttpService(\App\Services\ClearingService $clearing_service)
+    {
         $mock = new MockHandler();
 
         $mock->append(new Response(500, [], json_encode([
