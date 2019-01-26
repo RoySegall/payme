@@ -13,3 +13,4 @@ before_script:
 script:
   - ./vendor/bin/phpunit tests
   - ./vendor/bin/phpcs app --colors --standard=psr2
+  - ./vendor/bin/phpcs tests --colors --standard=psr2
