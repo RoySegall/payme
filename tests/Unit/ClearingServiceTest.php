@@ -1,15 +1,18 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Tests\MockTrait;
 
 class ClearingServiceTest extends TestCase
 {
+
+    use MockTrait;
 
     /**
      * @var \App\Services\ClearingService
@@ -24,31 +27,13 @@ class ClearingServiceTest extends TestCase
 
         $this->clearingService = app(\App\Services\ClearingService::class);
 
-        $mock = new MockHandler();
-
-        $mock->append(new Response(500, [], json_encode([
-            'status_code' => 1,
-            'status_error_details' => 'Invalid price',
-            'status_additional_info' => 123,
-            'status_error_code' => 352,
-        ])));
-
-        $mock->append(new Response(200, [], json_encode([
-            'status_code' => 0,
-            'sal_url' => 'http://google.com',
-            'payme_sale_id' => 123,
-            'status_error_code' => 352,
-        ])));
-
-        $handler = HandlerStack::create($mock);
-
-        $this->clearingService->setClient(new Client(['handler' => $handler]));
+        $this->mockService($this->clearingService);
     }
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function testExample()
+    public function testPaymentRequest()
     {
         $results = $this->clearingService->paymentRequest(200, 200, 200);
 
