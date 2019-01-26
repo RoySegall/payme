@@ -2,12 +2,8 @@
 
 namespace Tests\Unit;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 use Tests\MockTrait;
+use Tests\TestCase;
 
 class ClearingServiceTest extends TestCase
 {
@@ -25,9 +21,8 @@ class ClearingServiceTest extends TestCase
     public function setUp() {
         parent::setUp();
 
-        $this->clearingService = app(\App\Services\ClearingService::class);
-
-        $this->mockService($this->clearingService);
+        $this->clearingService = $this->app->get('\App\Services\ClearingService');
+        $this->mockHttpService($this->clearingService);
     }
 
     /**

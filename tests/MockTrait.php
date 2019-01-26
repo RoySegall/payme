@@ -9,7 +9,14 @@ use GuzzleHttp\Psr7\Response;
 
 trait MockTrait
 {
-    protected function mockService(\App\Services\ClearingService $clearing_service) {
+
+    /**
+     * Mocking a http requests.
+     *
+     * @param \App\Services\ClearingService $clearing_service
+     *  The clearing service object.
+     */
+    protected function mockHttpService(\App\Services\ClearingService $clearing_service) {
         $mock = new MockHandler();
 
         $mock->append(new Response(500, [], json_encode([

@@ -3,21 +3,18 @@
 namespace Tests\Controller;
 
 use App\Http\Controllers\PayMeController;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class PayMeControllerTest extends \Tests\TestCase
 {
 
+    use \Tests\MockTrait;
+
     /**
-     * Testing only requests validations.
+     * Testing the controller requests.
      *
-     * Since we cannot change a service during the tests we cannot mock
-     * HTTP requests.
+     * We won't use the method for testing the request since we cannot mock
+     * the guzzle object and that won't help us for testing.
      */
     public function testStore() {
 
@@ -28,8 +25,6 @@ class PayMeControllerTest extends \Tests\TestCase
 
         /** @var \App\Services\ClearingService $clearing_service */
         $clearing_service = $this->app->get('\App\Services\ClearingService');
-        
-        $this->mock($clearing_service);
 
         /** @var JsonResponse $response */
         $response = $controller->store($request, $clearing_service);
@@ -40,6 +35,8 @@ class PayMeControllerTest extends \Tests\TestCase
         $request->sale_price = 2500;
         $request->currency = 'ILS';
         $request->product_name = 'pizza';
+
+        $this->mockHttpService($clearing_service);
 
         /** @var JsonResponse $response */
         $response = $controller->store($request, $clearing_service);
