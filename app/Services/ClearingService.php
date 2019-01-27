@@ -2,8 +2,15 @@
 
 namespace App\Services;
 
+use App\Services\LogsService;
+
 class ClearingService implements ClearingServiceInterface
 {
+
+    /**
+     * @var LogsService
+     */
+    protected $logService;
 
     /**
      * @var \GuzzleHttp\Client
@@ -17,10 +24,13 @@ class ClearingService implements ClearingServiceInterface
 
     /**
      * ClearingService constructor.
+     *
+     * @param LogsService $logs_service
      */
-    public function __construct()
+    public function __construct(LogsService $logs_service)
     {
         $this->client = new \GuzzleHttp\Client();
+        $this->logService = $logs_service;
     }
 
     /**
@@ -86,7 +96,10 @@ class ClearingService implements ClearingServiceInterface
             return true;
         }
 
-        // todo: log the error.
+        $this
+            ->logService
+            ->logError('clearing-issues', ['message' => 'Clearing issues', 'clearing_info' => $this->log]);
+
         return false;
     }
 }

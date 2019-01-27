@@ -36,8 +36,8 @@ class Sandbox extends Command
      *
      * @return mixed
      */
-    public function handle(ClearingService $clear)
+    public function handle(\App\Services\ClearingService $clearingService)
     {
-        d($clear->paymentRequest(2500, 'ils', 'pizz'));
+        $clearingService->paymentRequest(10, 'ILS', 'pizza');
     }
 }
