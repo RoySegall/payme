@@ -14,11 +14,53 @@ Then run in your terminal:
 composer install
 ```
 
-## REST api documentation
+## Serving
+In the root folder run:
+```bash
+php artisan serve
+```
 
-just go to https://roysegall.github.io/payme/
+This will fire up the dev server. For more info just go to 
+https://roysegall.github.io/payme
 
-## Tests
+## Code
+
+### Using built in services
+
+#### Clearing
+In order to use the clearing you can inject the class 
+`\App\Services\ClearingService` to a router callback or a command. It suppose to
+look like this:
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Services\ClearingService;
+use Illuminate\Http\Request;
+
+class PayMeController extends Controller
+{
+
+    /**
+     * create a payment request.
+     *
+     * @param Request $request
+     *  The request service.
+     * @param ClearingService $clearing_service
+     *  The clearing service.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function store(Request $request, ClearingService $clearing_service)
+    {
+        return $clearing_service->paymentRequest(2500, 'ILS', 'Pizza');
+    }
+}
+```
+
+### Tests
 We have two kind of tests: coding standards and unit test. In order to run it
 just run in your CLI from the root folder:
 ```bash

@@ -1,2 +1,1 @@
-# Welcome
-Welcome to PayMe demo site documentation
+Welcome to PayMe demo site documentation.
