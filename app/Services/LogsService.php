@@ -34,7 +34,7 @@ class LogsService implements LogsServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function setClient(\GuzzleHttp\Client $client): LogsService
+    public function setClient(\GuzzleHttp\Client $client): LogsServiceInterface
     {
         $this->client = $client;
 
@@ -51,13 +51,15 @@ class LogsService implements LogsServiceInterface
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function logError($type, $error) {
+    public function logError($type, $error)
+    {
         $this->client->request(
             'POST',
             env('LOGZ_IO_URI') .
                 '/?token=' .
                 env('LOGZ_IO_TOKEN') .
-                '&type=' . $type, ['json' => $error]);
+            '&type=' . $type,
+            ['json' => $error]
+        );
     }
-
 }

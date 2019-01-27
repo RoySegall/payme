@@ -27,7 +27,7 @@ class PayMeServiceProvider extends ServiceProvider
             return new \App\Services\ClearingService($app->get('\App\Services\LogsService'));
         });
 
-        $this->app->bind('\App\Services\LogsService', function() {
+        $this->app->bind('\App\Services\LogsService', function () {
             return new \App\Services\LogsService();
         });
     }
