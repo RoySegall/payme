@@ -53,6 +53,10 @@ class LogsService implements LogsServiceInterface
      */
     public function logError($type, $error)
     {
+        if (!env('LOGZ_IO_URI') || !env('LOGZ_IO_TOKEN')) {
+            return;
+        }
+
         $this->client->request(
             'POST',
             env('LOGZ_IO_URI') .
