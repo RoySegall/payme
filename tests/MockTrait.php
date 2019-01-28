@@ -38,4 +38,22 @@ trait MockTrait
 
         $clearing_service->setClient(new Client(['handler' => $handler]));
     }
+
+    /**
+     * Mocking HTTP request for the log service.
+     *
+     * @param \App\Services\LogsService $log_service
+     *  The log service object.
+     */
+    protected function mockLogsService(\App\Services\LogsService $log_service)
+    {
+        $mock = new MockHandler();
+
+        $mock->append(new Response(500, []));
+        $mock->append(new Response(200));
+
+        $handler = HandlerStack::create($mock);
+
+        $log_service->setClient(new Client(['handler' => $handler]));
+    }
 }

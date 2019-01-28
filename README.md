@@ -3,6 +3,12 @@
 [![Build Status](https://travis-ci.org/RoySegall/payme.svg?branch=master)](https://travis-ci.org/RoySegall/payme)
 
 ## Setting up
+First, let's copy the example `.env` file to our custom one:
+
+```bash
+cp .env.example .env
+```
+
 Once you got the a seller payme ID add it to the `.env` file. It suppose to look
 like this:
 ```dotenv
@@ -22,6 +28,19 @@ php artisan serve
 
 This will fire up the dev server. For more info just go to 
 https://roysegall.github.io/payme
+
+## Logging
+When a clearance action will fail we will log it to a log service. The chosen
+service is logz.io. In order to set it up edit in the `.env` file the logz.io 
+keys:
+
+```dotenv
+LOGZ_IO_URI="LISTENER_URI"
+LOGZ_IO_TOKEN="TOKEN"
+```
+
+The uri and the token are available in the logz.io dashboard under:
+`Logz Shipping -> Libraries -> Bulk HTTP/S`
 
 ## Code
 
@@ -56,6 +75,52 @@ class PayMeController extends Controller
     public function store(Request $request, ClearingService $clearing_service)
     {
         return $clearing_service->paymentRequest(2500, 'ILS', 'Pizza');
+    }
+}
+```
+
+#### Logging
+You log data using the service `\App\Services\LogsService`. Here is an example
+on how to use it:
+```php
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+
+class Sandbox extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     */
+    public function handle(\App\Services\LogsService $logs_service)
+    {
+        $logs_service->logError('foo', ['error' => 'content']);
     }
 }
 ```

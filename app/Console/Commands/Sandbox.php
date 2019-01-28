@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Services\ClearingService;
 use Illuminate\Console\Command;
 
 class Sandbox extends Command
@@ -33,11 +32,9 @@ class Sandbox extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle(ClearingService $clear)
+    public function handle(\App\Services\LogsService $logs_service)
     {
-        d($clear->paymentRequest(2500, 'ils', 'pizz'));
+        $logs_service->logError('foo', ['error' => 'content']);
     }
 }
