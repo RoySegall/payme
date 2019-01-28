@@ -50,12 +50,14 @@ class LogsService implements LogsServiceInterface
      *  The error to log.
      *
      * @return bool
+     *  Will return true if the log has been sent to the log or not.
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function logError($type, $error): bool
     {
         if (!env('LOGZ_IO_URI') || !env('LOGZ_IO_TOKEN')) {
-            return;
+            return false;
         }
 
         try {

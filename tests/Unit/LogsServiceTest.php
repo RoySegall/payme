@@ -26,8 +26,14 @@ class LogsServiceTest extends TestCase
         $this->mockLogsService($this->logsService);
     }
 
+    /**
+     * Making sure the requests will be sent to the server as we mock them.
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function testLog()
     {
-        $this->assertTrue(true);
+        $this->assertFalse($this->logsService->logError('random-message', ['pizza']));
+        $this->assertTrue($this->logsService->logError('random-message', ['pizza' => 'yummy!']));
     }
 }
