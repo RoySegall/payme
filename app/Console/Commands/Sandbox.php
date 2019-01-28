@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\ClearingService;
 use Illuminate\Console\Command;
 
 class Sandbox extends Command
@@ -33,8 +34,8 @@ class Sandbox extends Command
     /**
      * Execute the console command.
      */
-    public function handle(\App\Services\LogsService $logs_service)
+    public function handle(ClearingService $clearingService)
     {
-        $logs_service->logError('foo', ['error' => 'content']);
+        $clearingService->trackClearance(125, '2566', 'ils', '');
     }
 }

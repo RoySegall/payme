@@ -2,13 +2,15 @@
 
 namespace Tests\Unit;
 
+use App\SalesInformation;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\MockTrait;
 use Tests\TestCase;
 
 class ClearingServiceTest extends TestCase
 {
 
-    use MockTrait;
+    use MockTrait, RefreshDatabase;
 
     /**
      * @var \App\Services\ClearingService
@@ -34,7 +36,7 @@ class ClearingServiceTest extends TestCase
         $results = $this->clearingService->paymentRequest(200, 200, 200);
 
         $this->assertFalse($results);
-        $this->assertEquals($this->clearingService->getLog(), (object)[
+        $this->assertEquals($this->clearingService->getLog(), (object) [
             'status_code' => 1,
             'status_error_details' => 'Invalid price',
             'status_additional_info' => 123,
@@ -43,12 +45,13 @@ class ClearingServiceTest extends TestCase
 
         $results = $this->clearingService->paymentRequest(200, 200, 200);
 
-        $this->assertEquals($this->clearingService->getLog(), (object) [
-            'status_code' => 0,
-            'sal_url' => 'http://google.com',
-            'payme_sale_id' => 123,
-            'status_error_code' => 352,
-        ]);
+        $log = $this->clearingService->getLog();
+
+        $this->assertEquals($this->clearingService->getLog(), (object) $log);
         $this->assertTrue($results);
+
+        // Checking the sale information logged to the DB.
+        $query_results = SalesInformation::where('payme_sale_code', $log->payme_sale_code)->first();
+        $this->assertNotEmpty($query_results);
     }
 }
