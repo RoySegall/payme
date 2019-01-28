@@ -9,7 +9,8 @@ class SalesInformationControllerTest extends \Tests\TestCase
 
     use RefreshDatabase;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         /** @var \App\Services\ClearingService $clearing_service */

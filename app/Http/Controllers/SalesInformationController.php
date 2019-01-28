@@ -12,7 +12,8 @@ class SalesInformationController extends Controller
      *
      * @return SalesInformation[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function show() {
+    public function show()
+    {
         // todo: handle pagination.
         return SalesInformation::all();
     }
