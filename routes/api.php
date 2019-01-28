@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/pay', 'PayMeController@store');
+Route::get('/sales', 'SalesInformationController@show');
