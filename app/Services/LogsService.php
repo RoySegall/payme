@@ -49,21 +49,28 @@ class LogsService implements LogsServiceInterface
      * @param $error
      *  The error to log.
      *
+     * @return bool
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function logError($type, $error)
+    public function logError($type, $error): bool
     {
         if (!env('LOGZ_IO_URI') || !env('LOGZ_IO_TOKEN')) {
             return;
         }
 
-        $this->client->request(
-            'POST',
-            env('LOGZ_IO_URI') .
+        try {
+            $this->client->request(
+                'POST',
+                env('LOGZ_IO_URI') .
                 '/?token=' .
                 env('LOGZ_IO_TOKEN') .
-            '&type=' . $type,
-            ['json' => $error]
-        );
+                '&type=' . $type,
+                ['json' => $error]
+            );
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
