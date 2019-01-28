@@ -26,8 +26,8 @@ class LogsServiceTest extends TestCase
         $this->mockLogsService($this->logsService);
     }
 
-    public function testLog() {
+    public function testLog()
+    {
         $this->assertTrue(true);
     }
-
 }
