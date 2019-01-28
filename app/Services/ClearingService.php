@@ -106,7 +106,8 @@ class ClearingService implements ClearingServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function trackClearance($sale_number, $sale_price, $currency, $product_name) {
+    public function trackClearance($sale_number, $sale_price, $currency, $product_name)
+    {
         $sale_information = new SalesInformation();
         $sale_information->payme_sale_code = $sale_number;
         $sale_information->price = $sale_price;

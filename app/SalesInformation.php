@@ -10,4 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property $price
  * @property $currency
  */
-class SalesInformation extends Model {}
+class SalesInformation extends Model
+{
+}
