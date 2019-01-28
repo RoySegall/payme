@@ -29,7 +29,7 @@ trait MockTrait
 
         $mock->append(new Response(200, [], json_encode([
             'status_code' => 0,
-            'sal_url' => 'http://google.com',
+            'sale_url' => 'http://google.com',
             'payme_sale_id' => 123,
             'payme_sale_code' => 352,
             'price' => 352,

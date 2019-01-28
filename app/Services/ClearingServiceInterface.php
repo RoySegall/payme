@@ -53,8 +53,10 @@ interface ClearingServiceInterface
      *  The currency.
      * @param $product_name
      *  The product name.
+     * @param $payment_link
+     *  The payment link address of the sale.
      *
      * @return mixed
      */
-    public function trackClearance($sale_number, $sale_price, $currency, $product_name);
+    public function trackClearance($sale_number, $sale_price, $currency, $product_name, $payment_link);
 }

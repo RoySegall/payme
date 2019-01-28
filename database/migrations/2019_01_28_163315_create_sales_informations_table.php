@@ -19,6 +19,7 @@ class CreateSalesInformationsTable extends Migration
             $table->string('product');
             $table->integer('price');
             $table->string('currency');
+            $table->string('payment_link');
             $table->timestamps();
         });
     }

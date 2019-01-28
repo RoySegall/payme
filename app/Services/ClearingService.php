@@ -92,7 +92,13 @@ class ClearingService implements ClearingServiceInterface
 
         if ($results->status_code === 0) {
             // The process marked as a success.
-            $this->trackClearance($results->payme_sale_code, $sale_price, $currency, $product_name);
+            $this->trackClearance(
+                $results->payme_sale_code,
+                $sale_price,
+                $currency,
+                $product_name,
+                $results->sale_url
+            );
             return true;
         }
 
@@ -106,13 +112,14 @@ class ClearingService implements ClearingServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function trackClearance($sale_number, $sale_price, $currency, $product_name)
+    public function trackClearance($sale_number, $sale_price, $currency, $product_name, $payment_link)
     {
         $sale_information = new SalesInformation();
         $sale_information->payme_sale_code = $sale_number;
         $sale_information->price = $sale_price;
         $sale_information->currency = $currency;
         $sale_information->product = $product_name;
+        $sale_information->payment_link = $payment_link;
         $sale_information->save();
     }
 }
