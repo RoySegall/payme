@@ -72,9 +72,9 @@ class SalesInformationControllerTest extends \Tests\TestCase
         $response->assertSeeText('Patrick start action figure');
         $response->assertSeeText('Water');
 
-        $response->assertSeeText('http://google.com');
-        $response->assertSeeText('http://github.com');
-        $response->assertSeeText('http://facebook.com');
-        $response->assertSeeText('http://twitter.com');
+        $response->assertSeeText('google.com');
+        $response->assertSeeText('github.com');
+        $response->assertSeeText('facebook.com');
+        $response->assertSeeText('twitter.com');
     }
 }
