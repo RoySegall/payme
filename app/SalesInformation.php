@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $product
  * @property $price
  * @property $currency
+ * @property $payment_link
  */
 class SalesInformation extends Model
 {

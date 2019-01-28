@@ -36,6 +36,6 @@ class Sandbox extends Command
      */
     public function handle(ClearingService $clearingService)
     {
-        $clearingService->trackClearance(125, '2566', 'ils', '');
+        $clearingService->trackClearance(125, '2566', 'ils', '', 'foo');
     }
 }
