@@ -7,9 +7,13 @@ cache:
   directories:
   - /home/travis/build/RoySegall/payme/vendor
 
+services:
+- mysql
+
 before_script:
   - composer install --dev
   - mv .env.travis .env
+  - mysql -u travis -e 'CREATE SCHEMA payme;'
 
 script:
   - ./vendor/bin/phpunit tests

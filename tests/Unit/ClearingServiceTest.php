@@ -47,8 +47,13 @@ class ClearingServiceTest extends TestCase
             'status_code' => 0,
             'sal_url' => 'http://google.com',
             'payme_sale_id' => 123,
-            'status_error_code' => 352,
+            'payme_sale_code' => 352,
+            'price' => 352,
+            'transaction_id' => 352,
+            'currency_id' => 352,
         ]);
         $this->assertTrue($results);
+
+        // todo: test DB integration.
     }
 }

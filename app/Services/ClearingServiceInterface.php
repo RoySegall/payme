@@ -41,4 +41,20 @@ interface ClearingServiceInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function paymentRequest($sale_price, $currency, $product_name);
+
+    /**
+     * Tracking the sale in the DB.
+     *
+     * @param $sale_number
+     *  The sale number we got from the API.
+     * @param $sale_price
+     *  The sale price in cents.
+     * @param $currency
+     *  The currency.
+     * @param $product_name
+     *  The product name.
+     *
+     * @return mixed
+     */
+    public function trackClearance($sale_number, $sale_price, $currency, $product_name);
 }

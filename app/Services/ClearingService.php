@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Services\LogsService;
+use App\SalesInformation;
 
 class ClearingService implements ClearingServiceInterface
 {
@@ -92,7 +92,7 @@ class ClearingService implements ClearingServiceInterface
 
         if ($results->status_code === 0) {
             // The process marked as a success.
-            // todo: Create an entry in the table entity.
+            $this->trackClearance($results->payme_sale_code, $sale_price, $currency, $product_name);
             return true;
         }
 
@@ -101,5 +101,17 @@ class ClearingService implements ClearingServiceInterface
             ->logError('clearing-issues', ['message' => 'Clearing issues', 'clearing_info' => $this->log]);
 
         return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function trackClearance($sale_number, $sale_price, $currency, $product_name) {
+        $sale_information = new SalesInformation();
+        $sale_information->payme_sale_code = $sale_number;
+        $sale_information->price = $sale_price;
+        $sale_information->currency = $currency;
+        $sale_information->product = $product_name;
+        $sale_information->save();
     }
 }
