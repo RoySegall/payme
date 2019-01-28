@@ -11,9 +11,11 @@ services:
 - mysql
 
 before_script:
-  - composer install --dev
   - mv .env.travis .env
   - mysql -u travis -e 'CREATE SCHEMA payme;'
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
   - php artisan migrate
 
 script:
