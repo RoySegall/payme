@@ -79,6 +79,17 @@ class PayMeController extends Controller
 }
 ```
 
+Once the clearing operation went OK the data will be saved to the DB. You can 
+also create entries in the DB by yourself:
+```php
+
+    public function handle(ClearingService $clearingService)
+    {
+        $clearingService->trackClearance($sale_number, $sale_price, $currency, $product_name, $payment_link);
+    }
+
+```
+
 #### Logging
 You log data using the service `\App\Services\LogsService`. Here is an example
 on how to use it:
