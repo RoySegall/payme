@@ -14,6 +14,7 @@ Here is an example:
     "product": "Pizza with pineapple",
     "price": 2500,
     "currency": "ILS",
+    "payment_link": "URL",
     "created_at": "2019-01-28 22:23:10",
     "updated_at": "2019-01-28 22:23:10"
   } 
@@ -25,5 +26,6 @@ Here is an example:
 * `product` - The name of the product
 * `price` - The price - in cents
 * `currency` - The currency which used in the transaction
+* `payment_link` - An address to pay using payme service
 * `created_at` - Date when the entry created
 * `updated_at` - Date when the entry last updated
